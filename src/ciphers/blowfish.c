@@ -432,6 +432,9 @@ int blowfish_expand(const unsigned char *key, int keylen,
 int blowfish_setup(const unsigned char *key, int keylen, int num_rounds,
                   symmetric_key *skey)
 {
+   LTC_ARGCHK(key  != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    /* check key length */
    if (keylen < 8 || keylen > 72) {
       return CRYPT_INVALID_KEYSIZE;
@@ -459,6 +462,9 @@ int blowfish_setup_with_data(const unsigned char *key, int keylen,
                              const unsigned char *data, int datalen,
                              symmetric_key *skey)
 {
+   LTC_ARGCHK(key  != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    XMEMCPY(skey->blowfish.K, ORIG_P, sizeof(ORIG_P));
    XMEMCPY(skey->blowfish.S, ORIG_S, sizeof(ORIG_S));
    return blowfish_expand(key, keylen, data, datalen, skey);
@@ -633,7 +639,7 @@ int blowfish_test(void)
 */
 void blowfish_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /**

@@ -196,6 +196,9 @@ int kseed_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_
    int     i;
    ulong32 tmp, k1, k2, k3, k4;
 
+   LTC_ARGCHK(key  != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    if (keylen != 16) {
       return CRYPT_INVALID_KEYSIZE;
    }
@@ -251,6 +254,11 @@ static void rounds(ulong32 *P, const ulong32 *K)
 int kseed_ecb_encrypt(const unsigned char *pt, unsigned char *ct, const symmetric_key *skey)
 {
    ulong32 P[4];
+
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    LOAD32H(P[0], pt);
    LOAD32H(P[1], pt+4);
    LOAD32H(P[2], pt+8);
@@ -273,6 +281,11 @@ int kseed_ecb_encrypt(const unsigned char *pt, unsigned char *ct, const symmetri
 int kseed_ecb_decrypt(const unsigned char *ct, unsigned char *pt, const symmetric_key *skey)
 {
    ulong32 P[4];
+
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    LOAD32H(P[0], ct);
    LOAD32H(P[1], ct+4);
    LOAD32H(P[2], ct+8);
@@ -290,7 +303,7 @@ int kseed_ecb_decrypt(const unsigned char *ct, unsigned char *pt, const symmetri
 */
 void kseed_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /**

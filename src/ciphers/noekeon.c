@@ -295,7 +295,7 @@ int noekeon_test(void)
 */
 void noekeon_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /**

@@ -62,13 +62,15 @@ static const unsigned char permute[256] = {
  */
 int rc2_setup_ex(const unsigned char *key, int keylen, int bits, int num_rounds, symmetric_key *skey)
 {
-   unsigned *xkey = skey->rc2.xkey;
+   unsigned *xkey;
    unsigned char tmp[128];
    unsigned T8, TM;
    int i;
 
    LTC_ARGCHK(key  != NULL);
    LTC_ARGCHK(skey != NULL);
+
+   xkey = skey->rc2.xkey;
 
    if (keylen == 0 || keylen > 128 || bits > 1024) {
       return CRYPT_INVALID_KEYSIZE;
@@ -382,7 +384,7 @@ int rc2_test(void)
 */
 void rc2_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /**

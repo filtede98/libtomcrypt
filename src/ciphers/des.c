@@ -1561,6 +1561,9 @@ int des_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_ke
  */
 int desx_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_key *skey)
 {
+   LTC_ARGCHK(key  != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    if(num_rounds != 0 && num_rounds != 16) {
        return CRYPT_INVALID_ROUNDS;
    }
@@ -2169,7 +2172,7 @@ int des3_test(void)
 */
 void des_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /** Terminate the context
@@ -2177,7 +2180,7 @@ void des_done(symmetric_key *skey)
 */
 void desx_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /** Terminate the context
@@ -2185,7 +2188,7 @@ void desx_done(symmetric_key *skey)
 */
 void des3_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 

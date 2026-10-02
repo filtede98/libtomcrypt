@@ -268,7 +268,7 @@ int sm4_ecb_decrypt(const unsigned char *ct, unsigned char *pt,
 
 void sm4_done(symmetric_key *skey)
 {
-    LTC_UNUSED_PARAM(skey);
+    LTC_ARGCHKVD(skey != NULL);
 }
 int sm4_keysize(int *keysize)
 {

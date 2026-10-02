@@ -231,6 +231,8 @@ static const crypt_constant s_crypt_constants[] = {
 int crypt_get_constant(const char* namein, int *valueout) {
     int i;
     int count = sizeof(s_crypt_constants) / sizeof(s_crypt_constants[0]);
+    LTC_ARGCHK(namein   != NULL);
+    LTC_ARGCHK(valueout != NULL);
     for (i=0; i<count; i++) {
         if (XSTRCMP(s_crypt_constants[i].name, namein) == 0) {
             *valueout = s_crypt_constants[i].value;
@@ -256,6 +258,8 @@ int crypt_list_all_constants(char *names_list, unsigned int *names_list_size) {
     char *ptr;
     int number_len;
     int count = sizeof(s_crypt_constants) / sizeof(s_crypt_constants[0]);
+
+    LTC_ARGCHK(names_list_size != NULL);
 
     /* calculate amount of memory required for the list */
     for (i=0; i<count; i++) {

@@ -152,7 +152,12 @@ int idea_setup(const unsigned char *key, int keylen, int num_rounds, symmetric_k
 
 int idea_ecb_encrypt(const unsigned char *pt, unsigned char *ct, const symmetric_key *skey)
 {
-   int err = s_process_block(pt, ct, skey->idea.ek);
+   int err;
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(skey != NULL);
+
+   err = s_process_block(pt, ct, skey->idea.ek);
 #ifdef LTC_CLEAN_STACK
    burn_stack(sizeof(ushort16) * 6 + sizeof(int));
 #endif
@@ -161,7 +166,12 @@ int idea_ecb_encrypt(const unsigned char *pt, unsigned char *ct, const symmetric
 
 int idea_ecb_decrypt(const unsigned char *ct, unsigned char *pt, const symmetric_key *skey)
 {
-   int err = s_process_block(ct, pt, skey->idea.dk);
+   int err;
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(skey != NULL);
+
+   err = s_process_block(ct, pt, skey->idea.dk);
 #ifdef LTC_CLEAN_STACK
    burn_stack(sizeof(ushort16) * 6 + sizeof(int));
 #endif
@@ -170,7 +180,7 @@ int idea_ecb_decrypt(const unsigned char *ct, unsigned char *pt, const symmetric
 
 void idea_done(symmetric_key *skey)
 {
-   LTC_UNUSED_PARAM(skey);
+   LTC_ARGCHKVD(skey != NULL);
 }
 
 int idea_keysize(int *keysize)

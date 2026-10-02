@@ -435,6 +435,10 @@ int camellia_ecb_encrypt(const unsigned char *pt, unsigned char *ct, const symme
    ulong64 L, R;
    ulong32 a, b;
 
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(skey != NULL);
+
    LOAD64H(L, pt+0); LOAD64H(R, pt+8);
    L ^= skey->camellia.kw[0];
    R ^= skey->camellia.kw[1];
@@ -528,6 +532,10 @@ int camellia_ecb_decrypt(const unsigned char *ct, unsigned char *pt, const symme
 {
    ulong64 L, R;
    ulong32 a, b;
+
+   LTC_ARGCHK(ct   != NULL);
+   LTC_ARGCHK(pt   != NULL);
+   LTC_ARGCHK(skey != NULL);
 
    LOAD64H(R, ct+0); LOAD64H(L, ct+8);
    L ^= skey->camellia.kw[3];
@@ -705,11 +713,12 @@ int camellia_test(void)
 
 void camellia_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 int camellia_keysize(int *keysize)
 {
+   LTC_ARGCHK(keysize != NULL);
    if (*keysize >= 32) { *keysize = 32; }
    else if (*keysize >= 24) { *keysize = 24; }
    else if (*keysize >= 16) { *keysize = 16; }

@@ -291,6 +291,8 @@ static const crypt_size s_crypt_sizes[] = {
 int crypt_get_size(const char* namein, unsigned int *sizeout) {
     int i;
     int count = sizeof(s_crypt_sizes) / sizeof(s_crypt_sizes[0]);
+    LTC_ARGCHK(namein  != NULL);
+    LTC_ARGCHK(sizeout != NULL);
     for (i=0; i<count; i++) {
         if (XSTRCMP(s_crypt_sizes[i].name, namein) == 0) {
             *sizeout = s_crypt_sizes[i].size;
@@ -316,6 +318,8 @@ int crypt_list_all_sizes(char *names_list, unsigned int *names_list_size) {
     char *ptr;
     int number_len;
     int count = sizeof(s_crypt_sizes) / sizeof(s_crypt_sizes[0]);
+
+    LTC_ARGCHK(names_list_size != NULL);
 
     /* calculate amount of memory required for the list */
     for (i=0; i<count; i++) {

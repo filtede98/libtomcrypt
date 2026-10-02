@@ -187,7 +187,7 @@ int tea_test(void)
 */
 void tea_done(symmetric_key *skey)
 {
-  LTC_UNUSED_PARAM(skey);
+  LTC_ARGCHKVD(skey != NULL);
 }
 
 /**
